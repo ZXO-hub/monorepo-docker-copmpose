@@ -28,5 +28,6 @@ jobs:
                 file: ./docker/Dockerfile.ws
                 push: true
                 tags: hemeshkanyal/todo-app-ws:${{ github.sha }}
-    
+                build-args: |
+                    DATABASE_URL=${{ secrets.DATABASE_URL }}
     
