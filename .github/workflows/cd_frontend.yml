@@ -2,7 +2,7 @@
 ## Push to docker image to docker hub
 ## SSH into our VM and start the new image
 
-name: backend deployment pipeline
+name: frontend deployment pipeline
 
 on:
     push:
@@ -25,10 +25,10 @@ jobs:
               uses: docker/build-push-action@v3
               with:
                 context: .
-                file: ./docker/Dockerfile.backend
-                push: true
-                tags: hemeshkanyal/todo-app-backend:${{ github.sha }}
+                file: ./docker/Dockerfile.frontend
                 build-args: |
-                    DATABASE_URL=${{ secrets.DATABASE_URL }}
+                  DATABASE_URL=${{ secrets.DATABASE_URL }}
+                push: true
+                tags: hemeshkanyal/todo-app-frontend:${{ github.sha }}
     
-            
+    

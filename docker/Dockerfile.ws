@@ -10,6 +10,9 @@ COPY ./turbo.json ./turbo.json
 
 COPY ./apps/websocket ./apps/websocket
 
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+
 RUN bun install
 RUN bun run db:generate
 
