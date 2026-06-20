@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.backend
+      args:
+        DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
     ports:
       - "8080:8080"
     environment:
@@ -27,6 +29,8 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.ws
+      args:
+        DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
     ports:
       - "8081:8081"
     environment:
@@ -35,7 +39,7 @@ services:
       - postgres
 
   postgres:
-    image: postgres
+    image: postgres:17
     environment:
       - POSTGRES_PASSWORD=postgres
     ports:

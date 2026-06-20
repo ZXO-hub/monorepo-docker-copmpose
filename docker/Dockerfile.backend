@@ -18,4 +18,4 @@ RUN bun run db:generate
 
 EXPOSE 8080
 
-CMD ["bun", "run", "strat.backend"]
+CMD ["bun", "run", "start:backend"]

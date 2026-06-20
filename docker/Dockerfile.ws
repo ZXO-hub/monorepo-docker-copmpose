@@ -18,4 +18,4 @@ RUN bun run db:generate
 
 EXPOSE 8081
 
-CMD ["bun", "run", "strat.ws"]
+CMD ["bun", "run", "start:ws"]
