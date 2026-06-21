@@ -31,4 +31,14 @@ jobs:
                 build-args: |
                     DATABASE_URL=${{ secrets.DATABASE_URL }}
     
-            
+            - name: Deploy to VM
+              run: |
+                echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
+                chmod 600 ~/ssh_key
+
+                mkdir -p ~/.ssh
+                echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+                ssh -i ~/ssh_key ubuntu@18.138.229.30 << 'EOF'
+                  docker stop user_backend && docker run --name user_backend -d -p 8080:8080 100xdevs/todo-app-backend:${{ github.sha }}
+                EOF
