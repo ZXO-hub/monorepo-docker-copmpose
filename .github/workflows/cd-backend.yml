@@ -33,12 +33,6 @@ jobs:
     
             - name: Deploy to VM
               run: |
-                echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
-                chmod 600 ~/ssh_key
-
-                mkdir -p ~/.ssh
-                echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-
-                ssh -i ~/ssh_key ubuntu@18.138.229.30 << 'EOF'
-                  docker stop user_backend && docker run --name user_backend -d -p 8080:8080 100xdevs/todo-app-backend:${{ github.sha }}
-                EOF
+                echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
+                chmod 700 /home/runner/ssh_key
+                ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@18.138.229.30 -t "docker stop user_backend && docker run --name user_backend -d -p 8080:8080 hemeshkanyal/todo-app-backend:${{ github.sha }}"
